@@ -29,12 +29,17 @@ router.get('/', (req, res) => {
 router.get('/:id', validateUserId, (req, res) => {
   // RETURN THE USER OBJECT
   // this needs a middleware to verify user id
+  res.json(users)
 });
 
-router.post('/', validateUser, (req, res) => {
+router.post('/', validateUser, (req, res, next) => {
   // RETURN THE NEWLY CREATED USER OBJECT
   // this needs a middleware to check that the request body is valid
-  console.log(req.name)
+  User.insert({ name: req.name })
+    .then(newUser => {
+      res.status(201).json(newUser)
+    })
+    .catch(next)
 });
 
 router.put('/:id', validateUser, validateUserId, (req, res) => {
