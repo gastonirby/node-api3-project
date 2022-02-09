@@ -26,7 +26,6 @@ try {
 }
 
 function validateUser(req, res, next) {
-  // DO YOUR MAGIC
   const { name } = req.body
   if (!name || !name.trim()) {
     res.status(400).json({
